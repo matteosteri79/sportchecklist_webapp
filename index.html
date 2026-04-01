@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sport Checklist</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="theme-color" content="#2c7be5">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+
+<header>
+    <img src="images/image_header.png" width="40%">
+</header>
+
+<main>
+    <div id="activeChecklist" class="">
+        <h2 id="activeChecklistTitle" class="checklist-title"></h2>
+    </div>
+
+    <div id="welcomeScreen" class="welcome">
+        <img src="images/logo_sportchecklist.png" alt="Benvenuto">
+        <p>Benvenuto in Sport Checklist</p>
+        <p>Crea la tua prima checklist dal menu in basso.</p>
+    </div>
+
+    <section class="content">
+        <ul id="sportsList"></ul>
+    </section>
+</main>
+
+<!-- Bottom App Menu -->
+<div id="fab" class="fab">
+    <span class="material-icons">add</span>
+</div>
+<div id="backToHomeBtn" class="home hidden">
+    <span class="material-icons">home</span>
+</div>
+
+<div id="actionMenu" class="action-menu hidden">
+    <button id="createChecklistBtn">Crea nuova checklist</button>
+    <button id="loadTemplateBtn">Carica checklist</button>
+    <button id="addCategoryBtn">Aggiungi categoria</button>
+</div>
+
+<div id="modalOverlay" class="modal-overlay hidden">
+    <div id="modal" class="modal"></div>
+</div>
+
+<script type="module" src="app.js"></script>
+
+<script>
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('service-worker.js')
+    }
+</script>
+
+</body>
+
+</html>
