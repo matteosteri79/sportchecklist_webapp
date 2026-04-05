@@ -1,0 +1,175 @@
+{
+  "templates": [
+    {
+      "id": "triathlon",
+      "name": "Triathlon",
+      "visible": true,
+      "categories": [
+        {
+          "name": "Nuoto",
+          "items": [
+            {"name": "Occhialini"},
+            {"name": "Muta"},
+            {"name": "Cuffia"},
+            {"name": "Ciabatte"}
+          ]
+        },
+        {
+          "name": "Ciclismo",
+          "items": [
+            {"name": "Bici"},
+            {"name": "Casco"},
+            {"name": "Scarpe bici"},
+            {"name": "Occhiali da sole"},
+            {"name": "Borraccia"},
+            {"name": "Pompetta bici"}
+          ]
+        },
+        {
+          "name": "Corsa",
+          "items": [
+            {"name": "Scarpe running"},
+            {"name": "Occhiali da sole"},
+            {"name": "Cappellino"}
+          ]
+        },
+        {
+          "name": "Transizioni",
+          "items": [
+            {"name": "Portanumero"},
+            {"name": "Elastici scarpe ciclismo"}
+          ]
+        },
+        {
+          "name": "Alimentazione",
+          "items": [
+            {"name": "Carbo gel"},
+            {"name": "Sali minerali"},
+            {"name": "Bottiglietta acqua pre gara"},
+            {"name": "Barretta"},
+            {"name": "Frutta secca"}
+          ]
+        },
+        {
+          "name": "Pre/Post gara",
+          "items": [
+            {"name": "Tessera società"},
+            {"name": "Abbigliamento di ricambio"},
+            {"name": "Abbigliamento della squadra"},
+            {"name": "Asciugamano/Accappatoio"}
+          ]
+        }
+      ]
+    },
+
+    {
+      "id": "nuoto",
+      "name": "Nuoto",
+      "visible": true,
+      "categories": [
+        {
+          "name": "Generale",
+          "items": [
+            {"name": "Occhialini"},
+            {"name": "Muta"},
+            {"name": "Cuffia"},
+            {"name": "Ciabatte"}
+          ]
+        },
+        {
+          "name": "Alimentazione",
+          "items": [
+            {"name": "Carbo gel"},
+            {"name": "Sali minerali"},
+            {"name": "Bottiglietta acqua pre gara"},
+            {"name": "Barretta"},
+            {"name": "Frutta secca"}
+          ]
+        },
+        {
+          "name": "Pre/Post gara",
+          "items": [
+            {"name": "Tessera società"},
+            {"name": "Abbigliamento di ricambio"},
+            {"name": "Abbigliamento della squadra"},
+            {"name": "Asciugamano/Accappatoio"}
+          ]
+        }
+      ]
+    },
+
+    {
+      "id": "ciclismo",
+      "name": "Ciclismo",
+      "visible": true,
+      "categories": [
+        {
+          "name": "Generale",
+          "items": [
+            {"name": "Bici"},
+            {"name": "Casco"},
+            {"name": "Scarpe bici"},
+            {"name": "Occhiali da sole"},
+            {"name": "Borraccia"},
+            {"name": "Pompetta bici"}
+          ]
+        },
+        {
+          "name": "Alimentazione",
+          "items": [
+            {"name": "Carbo gel"},
+            {"name": "Sali minerali"},
+            {"name": "Bottiglietta acqua pre gara"},
+            {"name": "Barretta"},
+            {"name": "Frutta secca"}
+          ]
+        },
+        {
+          "name": "Pre/Post gara",
+          "items": [
+            {"name": "Tessera società"},
+            {"name": "Abbigliamento di ricambio"},
+            {"name": "Abbigliamento della squadra"},
+            {"name": "Asciugamano/Accappatoio"}
+          ]
+        }
+      ]
+    },
+
+    {
+      "id": "corsa",
+      "name": "Corsa",
+      "visible": true,
+      "categories": [
+        {
+          "name": "Generale",
+          "items": [
+            {"name": "Scarpe running"},
+            {"name": "Occhiali da sole"},
+            {"name": "Cappellino"},
+            {"name": "Spille per numero di gara"}
+          ]
+        },
+        {
+          "name": "Alimentazione",
+          "items": [
+            {"name": "Carbo gel"},
+            {"name": "Sali minerali"},
+            {"name": "Bottiglietta acqua pre gara"},
+            {"name": "Barretta"},
+            {"name": "Frutta secca"}
+          ]
+        },
+        {
+          "name": "Pre/Post gara",
+          "items": [
+            {"name": "Tessera società"},
+            {"name": "Abbigliamento di ricambio"},
+            {"name": "Abbigliamento della squadra"},
+            {"name": "Asciugamano/Accappatoio"}
+          ]
+        }
+      ]
+    }
+  ]
+}

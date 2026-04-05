@@ -33,9 +33,6 @@ li{
     margin-bottom:6px;
     padding:10px;
     border-radius:6px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
 }
 .checklist-title{
     font-size:22px;
@@ -151,30 +148,105 @@ li{
     cursor:pointer;
 }
 
-/* categorie */
+/*** sport ***/
+.checklist-progress{
+    padding:12px;
+    background:white;
+    border-bottom:1px solid #e5e7eb;
+}
+.progress-bar{
+    height:10px;
+    background:#e6e6e6;
+    border-radius:20px;
+    overflow:hidden;
+}
+#progressFill{
+    height:100%;
+    width:0%;
+    border-radius:20px;
+    background:linear-gradient(90deg,#5bc08f,#279861);
+    transition:width 0.35s ease;
+}
+.progress-info{
+    display:flex;
+    justify-content:space-between;
+    font-size:13px;
+    margin-top:6px;
+    color:#555;
+}
+#progressText{
+    font-size:13px;
+    margin-top:6px;
+    color:#555;
+}
+.progress-complete{
+     background:linear-gradient(90deg,#279861,#1f7a4f);
+ }
 
-.category{
-    background:#eef2f7;
-    margin-left:10px;
+/*** categorie ***/
+.category-block{
+    border:1px solid #279861;
+    border-radius:8px;
+    margin-bottom:12px;
+    overflow:hidden;
+    padding:0px !important;
+}
+.category-header{
+    background:#5bc08f;
+    color: #ffffff;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:10px;
+}
+.category-left{
+    display:flex;
+    align-items:center;
+    gap:6px;
+}
+.category-count{
+    font-size:13px;
+    opacity:0.7;
+    margin-left:6px;
+}
+.category-complete{
+    background:#dff5ea;
 }
 
-/* items */
+/*** items ***/
+.category-block ul.items{
+    list-style:none;
+    padding:0;
+    margin:0;
 
-.item{
-    margin-left:20px;
-    font-size:14px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+.category-block.open ul.items {
+    max-height: 1000px; /* un valore grande per permettere di vedere tutti gli items */
+}
+.category-block .item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:8px 10px;
 }
 
 .material-icons.delete{
-    color:#c0392b;
+    color:#444444;
+    cursor: pointer;
 }
 
 .material-icons.add{
-    color:#111111;
+    color:#444444;
+    cursor: pointer;
 }
 
 .arrow{
     font-size:20px;
+    color:#ffffff;
+    cursor: pointer;
 }
 
 .checklist-row{

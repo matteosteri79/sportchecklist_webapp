@@ -1,5 +1,4 @@
 
-import { ChecklistTemplates } from "./checklistTemplates.js"
 import { openModal, closeModal } from "./modal.js"
 
 // ---------- Elementi DOM ----------
@@ -10,6 +9,12 @@ const activeChecklist = document.getElementById("activeChecklist")
 const backToHome = document.getElementById("backToHomeBtn")
 
 // ---------- Dati ----------
+let Templates = []
+async function loadTemplates(){
+    const res = await fetch("templates.json")
+    const json = await res.json()
+    Templates = json.templates
+}
 let data = JSON.parse(localStorage.getItem("sportsData")) || []
 let activeChecklistIndex = null
 
@@ -24,25 +29,25 @@ fab.addEventListener("click", () => {
 // ---------- Creazione checklist ----------
 document.getElementById("createChecklistBtn").addEventListener("click", () => {
     closeActionMenu()
-    
+
     openModal(`
     <h2>Crea checklist</h2>
     <input id="newChecklistName" placeholder="Nome sport">
         <button id="modalCreateBtn">Crea</button>
     `)
-    
+
     document.getElementById("modalCreateBtn").addEventListener("click", () => {
         const name = capitalizeFirst(
             document.getElementById("newChecklistName").value.trim()
         )
-        
+
         if(!name) return
-        
+
         data.push({
             name,
             categories:[]
         })
-    
+
         save()
         render()
         closeModal()
@@ -93,6 +98,7 @@ function renderHome(){
     activeChecklist.style.display = "block"
     title.style.display = "block"
     title.textContent = "Le tue checklist"
+    document.getElementById("checklistProgress").classList.add("hidden")
 
     const ul = document.createElement("ul")
 
@@ -144,68 +150,89 @@ function renderChecklist(){
     title.style.display = "block"
     title.textContent = "📋 Checklist: " + checklist.name
     sportsList.innerHTML = ""
+    document.getElementById("checklistProgress").classList.remove("hidden")
 
     renderCategories(checklist)
+    updateChecklistProgress(checklist)
     updateActionMenuButtons()
 }
 
 // ---------- CATEGORIE ----------
 function renderCategories(checklist){
     const fragment = document.createDocumentFragment()
+
     checklist.categories.forEach((cat,cIndex)=>{
-    const catLi = document.createElement("li")
-    catLi.className = "category"
-    const icon = cat.open ? "keyboard_arrow_up" : "keyboard_arrow_down"
+        const done = cat.items.filter(i => i.done).length
+        const total = cat.items.length
+        const catBlock = document.createElement("li")
+        catBlock.className = "category-block"
 
-    catLi.innerHTML = `
-        <div class="category-left" data-action="toggleCategory" data-c="${cIndex}">
-            <span>${cat.name}</span>
-            <span class="material-icons arrow">${icon}</span>
-        </div>
+        if(total > 0 && done === total) {
+            catBlock.classList.add("category-complete")
+        }
+        if(cat.open){
+            catBlock.classList.add("open")
+        }
 
-        <div>
-            <span class="material-icons add" data-action="addItem" data-c="${cIndex}">add</span>
-            <span class="material-icons delete" data-action="deleteCategory" data-c="${cIndex}">delete</span>
-        </div>
-        `
+        const icon = cat.open ? "keyboard_arrow_up" : "keyboard_arrow_down"
 
-    fragment.appendChild(catLi)
-    if(cat.open){
-        cat.items.forEach((item,iIndex)=>{
-            const itemLi = document.createElement("li")
-            itemLi.className = "item"
+        // crea la categoria
+        catBlock.innerHTML = `
+<div class="category-header">
 
-            itemLi.innerHTML = `
-                <div>
-                    <input class="check"
-                    type="checkbox"
-                    ${item.done ? "checked":""}
-                    data-action="toggleItem"
-                    data-c="${cIndex}"
-                    data-i="${iIndex}">
-                    ${item.name}
-                </div>
+    <div class="category-left" data-action="toggleCategory" data-c="${cIndex}">
+        <span>${cat.name}</span>
+        <span class="category-count">${done}/${total}</span>
+        <span class="material-icons arrow" data-action="toggleCategory" data-c="${cIndex}">${icon}</span>
+    </div>
 
-                <div>
-                    <span class="material-icons delete"
-                    data-action="deleteItem"
-                    data-c="${cIndex}"
-                    data-i="${iIndex}">
-                    delete
-                    </span>
-                </div>
-                `
-            fragment.appendChild(itemLi)
-        })
-    }
-})
+    <div class="category-actions">
+        <span class="material-icons add" data-action="addItem" data-c="${cIndex}">add</span>
+        <span class="material-icons delete" data-action="deleteCategory" data-c="${cIndex}">delete</span>
+    </div>
+
+</div>
+
+<ul class="items"></ul>
+`
+
+        const itemsContainer = catBlock.querySelector(".items")
+
+        // Popola gli oggetti solo se la categoria è aperta
+        if(cat.open && cat.items.length){
+            cat.items.forEach((item,iIndex)=>{
+                const itemLi = document.createElement("li")
+                itemLi.className = "item"
+                itemLi.innerHTML = `
+<div>
+    <input class="check"
+    type="checkbox"
+    ${item.done ? "checked":""}
+    data-action="toggleItem"
+    data-c="${cIndex}"
+    data-i="${iIndex}">
+    ${item.name}
+</div>
+
+<span class="material-icons delete"
+data-action="deleteItem"
+data-c="${cIndex}"
+data-i="${iIndex}">
+delete
+</span>
+`
+                itemsContainer.appendChild(itemLi)
+            })
+        }
+
+        fragment.appendChild(catBlock)
+    })
 
     sportsList.appendChild(fragment)
 }
 
 // ---------- Eventi lista ----------
-    sportsList.addEventListener("click", (e)=>{
-
+sportsList.addEventListener("click", (e)=>{
     const button = e.target.closest("[data-action]")
     if(!button) return
 
@@ -222,7 +249,7 @@ function renderCategories(checklist){
 })
 
 // ---------- Back Home ----------
-    backToHome.onclick = () => {
+backToHome.onclick = () => {
 
     activeChecklistIndex = null
     render()
@@ -243,9 +270,24 @@ function deleteCategory(s,c){
 }
 
 function toggleItem(s,c,i){
-    data[s].categories[c].items[i].done =
-        !data[s].categories[c].items[i].done
+    const category = data[s].categories[c]
+    category.items[i].done = !category.items[i].done
     save()
+
+    // Aggiorna contatore della categoria
+    const done = category.items.filter(it => it.done).length
+    const total = category.items.length
+    const catBlock = document.querySelector(`.category-block:nth-child(${c+1})`)
+    if(catBlock){
+        const counterSpan = catBlock.querySelector(".category-count")
+        if(counterSpan){
+            counterSpan.textContent = `${done}/${total}`
+        }
+        catBlock.classList.toggle("category-complete", done === total && total > 0)
+    }
+
+    // Aggiorna progressbar totale checklist
+    updateChecklistProgress(data[s])
 }
 
 function deleteItem(s,c,i){
@@ -264,23 +306,23 @@ function addCategoryModal(sIndex){
     `)
 
     document.getElementById("modalAddCategoryBtn")
-    .addEventListener("click", ()=>{
-        const name = capitalizeFirst(
-            document.getElementById("newCategoryName").value.trim()
-        )
+        .addEventListener("click", ()=>{
+            const name = capitalizeFirst(
+                document.getElementById("newCategoryName").value.trim()
+            )
 
-        if(!name) return
+            if(!name) return
 
-        data[sIndex].categories.push({
-            name,
-            items:[],
-            open:true
+            data[sIndex].categories.push({
+                name,
+                items:[],
+                open:true
+            })
+
+            save()
+            render()
+            closeModal()
         })
-
-        save()
-        render()
-        closeModal()
-    })
 }
 
 function addItemModal(sIndex,cIndex){
@@ -293,50 +335,70 @@ function addItemModal(sIndex,cIndex){
     `)
 
     document.getElementById("modalAddItemBtn")
-    .addEventListener("click", ()=>{
-        const name = capitalizeFirst(
-            document.getElementById("newItemName").value.trim()
-        )
+        .addEventListener("click", ()=>{
+            const name = capitalizeFirst(
+                document.getElementById("newItemName").value.trim()
+            )
 
-        if(!name) return
+            if(!name) return
 
-        data[sIndex].categories[cIndex].items.push({
-            name,
-            done:false
+            data[sIndex].categories[cIndex].items.push({
+                name,
+                done:false
+            })
+
+            save()
+            render()
+            closeModal()
         })
-
-        save()
-        render()
-        closeModal()
-    })
 }
 
 function loadTemplateModal(){
+
     closeActionMenu()
 
-    const templateNames = Object.keys(ChecklistTemplates)
-    const options = templateNames.map(name =>
-        `<option value="${name}">${name}</option>`
-    ).join("")
+    const templates = Templates.filter(t => t.visible)
+
+    if(!templates.length){
+        alert("Nessun template disponibile")
+        return
+    }
+
+    const options = templates
+        .map(t => `<option value="${t.id}">${t.name}</option>`)
+        .join("")
 
     openModal(`
-        <h2>Carica template</h2>
-        <select id="templateSelect">
-            ${options}
-        </select>
+        <h2>Carica checklist</h2>
+        <select id="templateSelect">${options}</select>
         <button id="modalLoadTemplateBtn">Carica</button>
     `)
 
-    document.getElementById("modalLoadTemplateBtn").addEventListener("click", ()=>{
+    document.getElementById("modalLoadTemplateBtn").addEventListener("click", () => {
         const selected = document.getElementById("templateSelect").value
-        const template = ChecklistTemplates[selected]
+        const template = Templates.find(t => t.id === selected)
 
         if(!template) return
-        data.push(JSON.parse(JSON.stringify(template)))
+
+        const newChecklist = {
+            name: template.name,
+            categories: template.categories.map(cat => ({
+                name: cat.name,
+                open: true,
+                items: cat.items.map(i => ({
+                    name: i.name,
+                    done: false
+                }))
+            }))
+        }
+
+        data.push(newChecklist)
+        activeChecklistIndex = data.length - 1
 
         save()
         render()
         closeModal()
+
     })
 }
 
@@ -360,13 +422,36 @@ function updateActionMenuButtons(){
     const backToHomeBtn = document.getElementById("backToHomeBtn")
 
     if(addCatBtn)
-    addCatBtn.classList.toggle("hidden", !hasActiveChecklist)
+        addCatBtn.classList.toggle("hidden", !hasActiveChecklist)
 
     if(addItemBtn)
-    addItemBtn.classList.toggle("hidden", !hasActiveChecklist)
+        addItemBtn.classList.toggle("hidden", !hasActiveChecklist)
 
     if(backToHomeBtn)
-    backToHomeBtn.classList.toggle("hidden", !hasActiveChecklist)
+        backToHomeBtn.classList.toggle("hidden", !hasActiveChecklist)
+}
+
+function updateChecklistProgress(checklist){
+
+    let total = 0
+    let done = 0
+
+    checklist.categories.forEach(cat=>{
+        total += cat.items.length
+        done += cat.items.filter(i=>i.done).length
+    })
+
+    const percent = total ? Math.round((done/total)*100) : 0
+    if(percent === 100){
+        document.getElementById("progressFill").classList.add("progress-complete")
+    }
+    document.getElementById("progressFill").style.width = percent + "%"
+
+    document.getElementById("progressText").textContent =
+        `${done} / ${total} oggetti presi`
+
+    document.getElementById("progressPercent").textContent =
+        percent + "%"
 }
 
 // ---------- Utility ----------
@@ -376,4 +461,9 @@ function capitalizeFirst(text){
 }
 
 // ---------- Init ----------
+async function init(){
+    await loadTemplates()
     render()
+}
+
+init()
