@@ -443,8 +443,12 @@ function updateChecklistProgress(checklist){
 
     const percent = total ? Math.round((done/total)*100) : 0
     if(percent === 100){
+        document.getElementById("progressComplete").classList.remove("hidden")
         document.getElementById("progressFill").classList.add("progress-complete")
     }
+    else
+        document.getElementById("progressComplete").classList.add("hidden")
+
     document.getElementById("progressFill").style.width = percent + "%"
 
     document.getElementById("progressText").textContent =
