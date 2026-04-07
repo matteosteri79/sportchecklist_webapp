@@ -1,4 +1,12 @@
 
+// ---------- Service Worker ----------
+if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+        navigator.serviceWorker.register("/service-worker.js");
+    });
+}
+
+// ---------- Import ----------
 import { openModal, closeModal } from "./modal.js"
 
 // ---------- Elementi DOM ----------
