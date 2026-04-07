@@ -11,7 +11,7 @@ const backToHome = document.getElementById("backToHomeBtn")
 // ---------- Dati ----------
 let Templates = []
 async function loadTemplates(){
-    const res = await fetch("templates.json")
+    const res = await fetch("assets/data/templates.json")
     const json = await res.json()
     Templates = json.templates
 }
@@ -86,8 +86,8 @@ function renderHome(){
 
         welcome.style.display = "block"
         welcome.innerHTML = `
-            <img src="images/logo_sportchecklist.png" alt="Benvenuto">
-            <p>Benvenuto in Sport Checklist</p>
+            <img src="assets/images/logo_sportchecklist.png" alt="Benvenuto">
+            <p>Benvenuto in SportvChecklist</p>
             <p>Crea la tua prima checklist dal menu in basso.</p>
             `
         return

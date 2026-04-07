@@ -6,7 +6,9 @@ const urlsToCache=[
     "/index.html",
     "/style.css",
     "/app.js",
-    "/manifest.json"
+    "/manifest.json",
+    "/assets/images/icon-192.png",
+    "/assets/images/icon-512.png"
 
 ]
 
