@@ -1,6 +1,6 @@
 {
-  "name": "SportvChecklist",
-  "short_name": "Checklist",
+  "name": "Sport Checklist",
+  "short_name": "Sport Checklist",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#ffffff",

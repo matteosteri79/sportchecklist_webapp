@@ -87,7 +87,7 @@ function renderHome(){
         welcome.style.display = "block"
         welcome.innerHTML = `
             <img src="assets/images/logo_sportchecklist.png" alt="Benvenuto">
-            <p>Benvenuto in SportvChecklist</p>
+            <p>Benvenuto in Sport Checklist</p>
             <p>Crea la tua prima checklist dal menu in basso.</p>
             `
         return
