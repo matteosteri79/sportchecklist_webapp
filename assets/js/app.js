@@ -39,26 +39,33 @@ document.getElementById("createChecklistBtn").addEventListener("click", () => {
     closeActionMenu()
 
     openModal(`
-    <h2>Crea checklist</h2>
-    <input id="newChecklistName" placeholder="Nome sport">
+        <h2>Crea checklist</h2>
+        <input id="newChecklistName" placeholder="Nome sport">
         <button id="modalCreateBtn">Crea</button>
     `)
 
     document.getElementById("modalCreateBtn").addEventListener("click", () => {
+
         const name = capitalizeFirst(
             document.getElementById("newChecklistName").value.trim()
         )
 
         if(!name) return
 
-        data.push({
+        // 1. CREA CHECKLIST
+        const newChecklist = {
             name,
-            categories:[]
-        })
+            categories: []
+        }
+
+        data.push(newChecklist)
+        activeChecklistIndex = data.length - 1
 
         save()
         render()
         closeModal()
+
+        addCategoryModalAfterCreate(activeChecklistIndex) // 2. APRI SUBITO CREAZIONE CATEGORIA
     })
 })
 
@@ -212,14 +219,14 @@ function renderCategories(checklist){
                 const itemLi = document.createElement("li")
                 itemLi.className = "item"
                 itemLi.innerHTML = `
-<div>
+<div class="item-content ${item.done ? "done" : ""}">
     <input class="check"
     type="checkbox"
     ${item.done ? "checked":""}
     data-action="toggleItem"
     data-c="${cIndex}"
     data-i="${iIndex}">
-    ${item.name}
+    <span class="item-text">${item.name}</span>
 </div>
 
 <span class="material-icons delete"
@@ -237,6 +244,68 @@ delete
     })
 
     sportsList.appendChild(fragment)
+}
+
+function addCategoryModalAfterCreate(sIndex){
+
+    openModal(`
+        <h2>Crea prima categoria</h2>
+        <input id="newCategoryName" placeholder="Nome categoria">
+        <button id="modalAddCategoryBtn">Continua</button>
+    `)
+
+    document.getElementById("modalAddCategoryBtn")
+        .addEventListener("click", ()=>{
+
+            const name = capitalizeFirst(
+                document.getElementById("newCategoryName").value.trim()
+            )
+
+            if(!name) return
+
+            const newCategory = {
+                name,
+                items: [],
+                open: true
+            }
+
+            data[sIndex].categories.push(newCategory)
+
+            save()
+            render()
+            closeModal()
+
+            // 3. ORA CREA PRIMO ITEM
+            addFirstItemModal(sIndex, data[sIndex].categories.length - 1)
+        })
+}
+
+function addFirstItemModal(sIndex, cIndex){
+
+    openModal(`
+        <h2>Aggiungi primo oggetto</h2>
+        <input id="newItemName" placeholder="Nome oggetto">
+        <button id="modalAddItemBtn">Crea</button>
+    `)
+
+    document.getElementById("modalAddItemBtn")
+        .addEventListener("click", ()=>{
+
+            const name = capitalizeFirst(
+                document.getElementById("newItemName").value.trim()
+            )
+
+            if(!name) return
+
+            data[sIndex].categories[cIndex].items.push({
+                name,
+                done: false
+            })
+
+            save()
+            render()
+            closeModal()
+        })
 }
 
 // ---------- Eventi lista ----------
@@ -279,19 +348,35 @@ function deleteCategory(s,c){
 
 function toggleItem(s,c,i){
     const category = data[s].categories[c]
+
     category.items[i].done = !category.items[i].done
     save()
+    save()
+
+    // 🔥 aggiorna UI item (barrato)
+    const itemEl = document.querySelector(
+        `.item input[data-c="${c}"][data-i="${i}"]`
+    )?.closest(".item-content")
+
+    if(itemEl){
+        itemEl.classList.toggle("done", category.items[i].done)
+    }
 
     // Aggiorna contatore della categoria
     const done = category.items.filter(it => it.done).length
     const total = category.items.length
+
     const catBlock = document.querySelector(`.category-block:nth-child(${c+1})`)
     if(catBlock){
         const counterSpan = catBlock.querySelector(".category-count")
         if(counterSpan){
             counterSpan.textContent = `${done}/${total}`
         }
-        catBlock.classList.toggle("category-complete", done === total && total > 0)
+
+        catBlock.classList.toggle(
+            "category-complete",
+            done === total && total > 0
+        )
     }
 
     // Aggiorna progressbar totale checklist

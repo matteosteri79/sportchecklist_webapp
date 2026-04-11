@@ -1,14 +1,18 @@
 {
   "templates": [
+
     {
       "id": "triathlon",
       "name": "Triathlon",
+      "icon": "timeline",
       "visible": true,
       "categories": [
         {
           "name": "Nuoto",
+          "icon": "swim",
           "items": [
             {"name": "Occhialini"},
+            {"name": "Bodysuit"},
             {"name": "Muta"},
             {"name": "Cuffia"},
             {"name": "Ciabatte"}
@@ -16,11 +20,13 @@
         },
         {
           "name": "Ciclismo",
+          "icon": "bike",
           "items": [
             {"name": "Bici"},
             {"name": "Casco"},
             {"name": "Scarpe bici"},
             {"name": "Occhiali da sole"},
+            {"name": "Calze"},
             {"name": "Borraccia"},
             {"name": "Pompetta bici"}
           ]
@@ -43,10 +49,10 @@
         {
           "name": "Alimentazione",
           "items": [
-            {"name": "Carbo gel"},
+            {"name": "Acqua/Borraccia"},
             {"name": "Sali minerali"},
-            {"name": "Bottiglietta acqua pre gara"},
-            {"name": "Barretta"},
+            {"name": "Carbo gel"},
+            {"name": "Barrette"},
             {"name": "Frutta secca"}
           ]
         },
@@ -56,7 +62,7 @@
             {"name": "Tessera società"},
             {"name": "Abbigliamento di ricambio"},
             {"name": "Abbigliamento della squadra"},
-            {"name": "Asciugamano/Accappatoio"}
+            {"name": "Kit doccia (Asciugamano/Accappatoio, sapone, ciabatte)"}
           ]
         }
       ]
@@ -65,13 +71,15 @@
     {
       "id": "nuoto",
       "name": "Nuoto",
+      "icon": "swim",
       "visible": true,
       "categories": [
         {
           "name": "Generale",
+          "icon": "swim",
           "items": [
             {"name": "Occhialini"},
-            {"name": "Muta"},
+            {"name": "Muta/Costumone"},
             {"name": "Cuffia"},
             {"name": "Ciabatte"}
           ]
@@ -79,10 +87,10 @@
         {
           "name": "Alimentazione",
           "items": [
-            {"name": "Carbo gel"},
+            {"name": "Acqua/Borraccia"},
             {"name": "Sali minerali"},
-            {"name": "Bottiglietta acqua pre gara"},
-            {"name": "Barretta"},
+            {"name": "Carbo gel"},
+            {"name": "Barrette"},
             {"name": "Frutta secca"}
           ]
         },
@@ -92,7 +100,7 @@
             {"name": "Tessera società"},
             {"name": "Abbigliamento di ricambio"},
             {"name": "Abbigliamento della squadra"},
-            {"name": "Asciugamano/Accappatoio"}
+            {"name": "Kit doccia (Asciugamano/Accappatoio, sapone, ciabatte)"}
           ]
         }
       ]
@@ -101,15 +109,18 @@
     {
       "id": "ciclismo",
       "name": "Ciclismo",
+      "icon": "bike",
       "visible": true,
       "categories": [
         {
           "name": "Generale",
+          "icon": "bike",
           "items": [
             {"name": "Bici"},
             {"name": "Casco"},
             {"name": "Scarpe bici"},
             {"name": "Occhiali da sole"},
+            {"name": "Calze"},
             {"name": "Borraccia"},
             {"name": "Pompetta bici"}
           ]
@@ -117,10 +128,10 @@
         {
           "name": "Alimentazione",
           "items": [
-            {"name": "Carbo gel"},
+            {"name": "Acqua/Borraccia"},
             {"name": "Sali minerali"},
-            {"name": "Bottiglietta acqua pre gara"},
-            {"name": "Barretta"},
+            {"name": "Carbo gel"},
+            {"name": "Barrette"},
             {"name": "Frutta secca"}
           ]
         },
@@ -130,7 +141,7 @@
             {"name": "Tessera società"},
             {"name": "Abbigliamento di ricambio"},
             {"name": "Abbigliamento della squadra"},
-            {"name": "Asciugamano/Accappatoio"}
+            {"name": "Kit doccia (Asciugamano/Accappatoio, sapone, ciabatte)"}
           ]
         }
       ]
@@ -153,10 +164,10 @@
         {
           "name": "Alimentazione",
           "items": [
-            {"name": "Carbo gel"},
+            {"name": "Acqua/Borraccia"},
             {"name": "Sali minerali"},
-            {"name": "Bottiglietta acqua pre gara"},
-            {"name": "Barretta"},
+            {"name": "Carbo gel"},
+            {"name": "Barrette"},
             {"name": "Frutta secca"}
           ]
         },
@@ -166,10 +177,98 @@
             {"name": "Tessera società"},
             {"name": "Abbigliamento di ricambio"},
             {"name": "Abbigliamento della squadra"},
-            {"name": "Asciugamano/Accappatoio"}
+            {"name": "Kit doccia (Asciugamano/Accappatoio, sapone, ciabatte)"}
           ]
         }
       ]
-    }
+    },
+
+    {
+        "id": "tennis",
+        "name": "Tennis",
+        "visible": true,
+        "categories": [
+          {
+            "name": "Generale",
+            "items": [
+              {"name": "Racchetta"},
+              {"name": "Racchetta di riserva"},
+              {"name": "Palline"},
+              {"name": "Borsone"},
+              {"name": "Scarpe"},
+              {"name": "Maglia"},
+              {"name": "Pantaloncini / Gonna"},
+              {"name": "Calzini"},
+              {"name": "Cappellino / Visiera"}
+            ]
+          },
+          {
+            "name": "Alimentazione",
+            "items": [
+              {"name": "Acqua/Borraccia"},
+              {"name": "Sali minerali"},
+              {"name": "Carbo gel"},
+              {"name": "Barrette"},
+              {"name": "Frutta secca"}
+            ]
+          },
+          {
+            "name": "Pre/Post gara",
+            "items": [
+              {"name": "Tessera società"},
+              {"name": "Abbigliamento di ricambio"},
+              {"name": "Abbigliamento della squadra"},
+              {"name": "Asciugamano"},
+              {"name": "Polsini"},
+              {"name": "Overgrip di ricambio"},
+              {"name": "Nastro / Cerotti per vesciche"},
+              {"name": "Protezione solare"},
+              {"name": "Cambio completo post-partita"},
+              {"name": "Kit doccia (Asciugamano/Accappatoio, sapone, ciabatte)"}
+            ]
+          }
+        ]
+      },
+
+    {
+        "id": "calcio",
+        "name": "Calcio",
+        "visible": true,
+        "categories": [
+          {
+            "name": "Generale",
+            "items": [
+              {"name": "Borsone"},
+              {"name": "Scarpette"},
+              {"name": "Parastinchi"},
+              {"name": "Maglia"},
+              {"name": "Pantaloncini"},
+              {"name": "Calzettoni"}
+            ]
+          },
+          {
+            "name": "Alimentazione",
+            "items": [
+              {"name": "Acqua/Borraccia"},
+              {"name": "Sali minerali"},
+              {"name": "Carbo gel"},
+              {"name": "Barrette"},
+              {"name": "Frutta secca"}
+            ]
+          },
+          {
+            "name": "Pre/Post gara",
+            "items": [
+              {"name": "Tessera società"},
+              {"name": "Abbigliamento di ricambio"},
+              {"name": "Abbigliamento della squadra"},
+              {"name": "Nastro per fissare i parastinchi"},
+              {"name": "Cambio completo post-partita"},
+              {"name": "Kit doccia (Asciugamano/Accappatoio, sapone, ciabatte)"}
+            ]
+          }
+        ]
+      }
+
   ]
 }
