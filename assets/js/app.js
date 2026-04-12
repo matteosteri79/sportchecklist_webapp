@@ -118,39 +118,42 @@ function renderHome(){
     const ul = document.createElement("ul")
 
     data.forEach((checklist,index)=>{
-        const li = document.createElement("li")
+        const li = document.createElement("li") // 🔥 tolto lo spazio
+
         li.innerHTML = `
-            <div class="checklist-row">
-                <span class="checklist-name">${checklist.name}</span>
-                <div class="checklist-actions">
-                    <button class="icon-btn" data-action="openChecklist" data-s="${index}">
-                        <span class="material-icons play">play_arrow</span>
-                    </button>
-                    <button class="icon-btn" data-action="deleteChecklist" data-s="${index}">
-                        <span class="material-icons delete">delete</span>
-                    </button>
-                </div>
+        <div class="checklist-row" data-action="openChecklist" data-s="${index}">
+            <span class="checklist-name">${checklist.name}</span>
+
+            <div class="checklist-actions">
+                <button class="icon-btn" data-action="deleteChecklist" data-s="${index}">
+                    <span class="material-icons delete">delete</span>
+                </button>
             </div>
-            `
+        </div>
+    `
+
         ul.appendChild(li)
     })
 
     sportsList.appendChild(ul)
     ul.addEventListener("click",(e)=>{
-        const button = e.target.closest("button")
-        if(!button) return
 
-        const action = button.dataset.action
-        const sIndex = Number(button.dataset.s)
+        const actionEl = e.target.closest("[data-action]")
+        if(!actionEl) return
 
-        if(action === "openChecklist"){
-            activeChecklistIndex = sIndex
-            render()
-        }
+        const action = actionEl.dataset.action
+        const sIndex = Number(actionEl.dataset.s)
 
+        // evita che il click su delete apra anche la checklist
         if(action === "deleteChecklist"){
             data.splice(sIndex,1)
             save()
+            render()
+            return
+        }
+
+        if(action === "openChecklist"){
+            activeChecklistIndex = sIndex
             render()
         }
     })
