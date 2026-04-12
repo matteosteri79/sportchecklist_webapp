@@ -8,7 +8,7 @@ if ("serviceWorker" in navigator) {
 
 // ---------- Import ----------
 import { openModal, closeModal } from "./modal.js"
-import { APP_VERSION } from "./version.js"
+import { APP_VERSION,SUPPORT_EMAIL } from "./utils.js"
 
 // ---------- Elementi DOM ----------
 const sportsList = document.getElementById("sportsList")
@@ -330,9 +330,11 @@ function openInfoModal(){
         <div class="textcenter">
             <img src="assets/images/logo_sportchecklist.png" class="info-logo" alt="Benvenuto">
             <p><strong>v. ${APP_VERSION}</strong></p>
-            <p><small>WebApp sviluppata per preparare la tua prossima gara e non dimenticarti nulla.</small></p>
-            <p><small>Buona fortuna e buona gara!</small></p>
-            <p >Contattaci a <a href="mailto:sportcheklist@gmail.com">sportcheklist@gmail.com</a></p>
+            <p><small>WebApp sviluppata per preparare la tua prossima gara e non dimenticarti nulla.<br>
+            Buona fortuna e buona gara!</small></p>
+            <p>Contattaci per supporto o feedback:<br><a href="mailto:${SUPPORT_EMAIL}" class="mail-link">
+                <span class="material-icons mail-icon">mail</span> Scrivici</a>
+            </p>
         </div>
     `)
 }
@@ -626,7 +628,7 @@ function openResetModal(){
         <div class="textcenter">
         
             <p><span class="material-icons alert-icon">warning</span> Sei sicuro di voler deselezionare tutti gli elementi? L'azione non può essere annullata!</p>
-            <button id="confirmResetBtn">Conferma</button>
+            <button id="confirmResetBtn">Reset</button>
             <button id="cancelResetBtn">Annulla</button>
         </div>
     `)

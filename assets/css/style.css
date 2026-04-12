@@ -377,10 +377,35 @@ li{
 .checklist-actions .delete{
     color: #d9534f;
 }
+
+.fab-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 10px 12px;
+}
+
+.fab-item .material-icons {
+    font-size: 20px;
+}
+#confirmResetBtn {
+    background: #e53935;
+    color: white;
+}
 #cancelResetBtn {
     background: lightgrey;
 }
+.mail-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+}
 
+.mail-icon {
+    font-size: 18px;
+}
 .info-logo {
     width: 50%;
     display: block;
