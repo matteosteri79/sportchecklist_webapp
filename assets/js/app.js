@@ -8,6 +8,7 @@ if ("serviceWorker" in navigator) {
 
 // ---------- Import ----------
 import { openModal, closeModal } from "./modal.js"
+import { APP_VERSION } from "./version.js"
 
 // ---------- Elementi DOM ----------
 const sportsList = document.getElementById("sportsList")
@@ -15,6 +16,8 @@ const title = document.getElementById("activeChecklistTitle")
 const welcome = document.getElementById("welcomeScreen")
 const activeChecklist = document.getElementById("activeChecklist")
 const backToHome = document.getElementById("backToHomeBtn")
+const menuBtn = document.getElementById("menuBtn")
+const topMenu = document.getElementById("topMenu")
 
 // ---------- Dati ----------
 let Templates = []
@@ -213,7 +216,6 @@ function renderCategories(checklist){
 
 <ul class="items"></ul>
 `
-
         const itemsContainer = catBlock.querySelector(".items")
 
         // Popola gli oggetti solo se la categoria è aperta
@@ -311,6 +313,30 @@ function addFirstItemModal(sIndex, cIndex){
         })
 }
 
+function openSettingsModal(){
+    openModal(`
+        <h2>Impostazioni</h2>
+
+        <p><strong>Tema</strong></p>
+        <p>Prossimamente</p>
+
+        <p><strong>Lingua</strong></p>
+        <p>Prossimamente</p>
+    `)
+}
+
+function openInfoModal(){
+    openModal(`
+        <div class="textcenter">
+            <img src="assets/images/logo_sportchecklist.png" class="info-logo" alt="Benvenuto">
+            <p><strong>v. ${APP_VERSION}</strong></p>
+            <p><small>WebApp sviluppata per preparare la tua prossima gara e non dimenticarti nulla.</small></p>
+            <p><small>Buona fortuna e buona gara!</small></p>
+            <p >Contattaci a <a href="mailto:sportcheklist@gmail.com">sportcheklist@gmail.com</a></p>
+        </div>
+    `)
+}
+
 // ---------- Eventi lista ----------
 sportsList.addEventListener("click", (e)=>{
     const button = e.target.closest("[data-action]")
@@ -326,6 +352,31 @@ sportsList.addEventListener("click", (e)=>{
     if(action === "toggleItem") toggleItem(activeChecklistIndex,cIndex,iIndex)
     if(action === "deleteItem") deleteItem(activeChecklistIndex,cIndex,iIndex)
 
+})
+
+document.addEventListener("click", (e)=>{
+    if(!e.target.closest("#menuBtn") && !e.target.closest("#topMenu")){
+        topMenu.classList.add("hidden")
+    }
+})
+menuBtn.addEventListener("click", (e)=>{
+    e.stopPropagation()
+    topMenu.classList.toggle("hidden")
+})
+
+topMenu.addEventListener("click", (e)=>{
+    const actionEl = e.target.closest("[data-action]")
+    if(!actionEl) return
+
+    const action = actionEl.dataset.action
+    if(action === "openSettings"){
+        openSettingsModal()
+    }
+    if(action === "openInfo"){
+        openInfoModal()
+    }
+
+    topMenu.classList.add("hidden")
 })
 
 // ---------- Back Home ----------
@@ -353,7 +404,6 @@ function toggleItem(s,c,i){
     const category = data[s].categories[c]
 
     category.items[i].done = !category.items[i].done
-    save()
     save()
 
     // 🔥 aggiorna UI item (barrato)
@@ -449,6 +499,7 @@ function addItemModal(sIndex,cIndex){
         })
 }
 
+
 function loadTemplateModal(){
 
     closeActionMenu()
@@ -507,28 +558,43 @@ document.getElementById("addCategoryBtn").addEventListener("click", ()=>{
 document.getElementById("loadTemplateBtn").addEventListener("click", ()=>{
     loadTemplateModal()
 })
+document.getElementById("resetChecklistBtn").addEventListener("click", ()=>{
+    if(activeChecklistIndex !== null){
+        openResetModal()
+    }
+})
 
 // ---------- UI ----------
 function updateActionMenuButtons(){
-
     const hasActiveChecklist = activeChecklistIndex !== null
-
     const addCatBtn = document.getElementById("addCategoryBtn")
     const addItemBtn = document.getElementById("addItemBtn")
     const backToHomeBtn = document.getElementById("backToHomeBtn")
+    const resetBtn = document.getElementById("resetChecklistBtn")
 
     if(addCatBtn)
         addCatBtn.classList.toggle("hidden", !hasActiveChecklist)
-
     if(addItemBtn)
         addItemBtn.classList.toggle("hidden", !hasActiveChecklist)
-
     if(backToHomeBtn)
         backToHomeBtn.classList.toggle("hidden", !hasActiveChecklist)
+    if(resetBtn)
+        resetBtn.classList.toggle("hidden", !hasActiveChecklist)
+}
+
+function resetChecklist(sIndex){
+    const checklist = data[sIndex]
+    checklist.categories.forEach(cat=>{
+        cat.items.forEach(item=>{
+            item.done = false
+        })
+    })
+
+    save()
+    render()
 }
 
 function updateChecklistProgress(checklist){
-
     let total = 0
     let done = 0
 
@@ -542,16 +608,35 @@ function updateChecklistProgress(checklist){
         document.getElementById("progressComplete").classList.remove("hidden")
         document.getElementById("progressFill").classList.add("progress-complete")
     }
-    else
+    else {
         document.getElementById("progressComplete").classList.add("hidden")
+    }
 
     document.getElementById("progressFill").style.width = percent + "%"
-
     document.getElementById("progressText").textContent =
         `${done} / ${total} oggetti presi`
-
     document.getElementById("progressPercent").textContent =
         percent + "%"
+}
+
+function openResetModal(){
+    closeActionMenu()
+    openModal(`
+        <h2>Reset checklist</h2>
+        <div class="textcenter">
+        
+            <p><span class="material-icons alert-icon">warning</span> Sei sicuro di voler deselezionare tutti gli elementi? L'azione non può essere annullata!</p>
+            <button id="confirmResetBtn">Conferma</button>
+            <button id="cancelResetBtn">Annulla</button>
+        </div>
+    `)
+    document.getElementById("confirmResetBtn")
+        .addEventListener("click", ()=>{
+            resetChecklist(activeChecklistIndex)
+            closeModal()
+        })
+    document.getElementById("cancelResetBtn")
+        .addEventListener("click", closeModal)
 }
 
 // ---------- Utility ----------
