@@ -1,6 +1,8 @@
 /* VERDE SCURO:  #279861 */
 /* VERDE CHIARO: #5bc08f */
 
+
+/*** GENERALE ***/
 body{
     margin:0;
     font-family:system-ui, sans-serif;
@@ -33,6 +35,16 @@ li{
     margin-bottom:6px;
     padding:10px;
     border-radius:6px;
+}
+
+body.modal-open #fab,
+body.modal-open #actionMenu,
+body.modal-open #topMenu {
+    display: none !important;
+}
+
+body.modal-open {
+    overflow: hidden;
 }
 .checklist-title{
     font-size:22px;

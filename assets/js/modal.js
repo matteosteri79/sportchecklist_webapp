@@ -2,15 +2,14 @@ const modalOverlay = document.getElementById("modalOverlay")
 const modal = document.getElementById("modal")
 
 export function openModal(content){
-    const overlay = document.getElementById("modalOverlay")
-    const modal = document.getElementById("modal")
     modal.innerHTML = content
-    overlay.classList.remove("hidden")
+    modalOverlay.classList.remove("hidden")
+    document.body.classList.add("modal-open")
 }
 
 export function closeModal(){
-    const overlay = document.getElementById("modalOverlay")
-    overlay.classList.add("hidden")
+    modalOverlay.classList.add("hidden")
+    document.body.classList.remove("modal-open")
 }
 
 modalOverlay.onclick = (e)=>{
