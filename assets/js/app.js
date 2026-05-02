@@ -33,6 +33,9 @@ let activeChecklistIndex = null
 const fab = document.getElementById("fab")
 const actionMenu = document.getElementById("actionMenu")
 
+document.addEventListener("modalOpened", updateUI)
+document.addEventListener("modalClosed", updateUI)
+
 fab.addEventListener("click", () => {
     actionMenu.classList.toggle("hidden")
 })
@@ -84,18 +87,19 @@ function save(){
 // ---------- Rendering principale ----------
 function render(){
     actionMenu.classList.add("hidden")
+
     if(activeChecklistIndex === null){
         renderHome()
-        return
+    } else {
+        renderChecklist()
     }
 
-    renderChecklist()
+    updateUI()
 }
 
 // ---------- HOME ----------
 function renderHome(){
     sportsList.innerHTML = ""
-    updateActionMenuButtons()
 
     // HOME senza checklist
     if(data.length === 0){
@@ -175,7 +179,6 @@ function renderChecklist(){
 
     renderCategories(checklist)
     updateChecklistProgress(checklist)
-    updateActionMenuButtons()
 }
 
 // ---------- CATEGORIE ----------
@@ -651,6 +654,22 @@ function openResetModal(){
         })
     document.getElementById("cancelResetBtn")
         .addEventListener("click", closeModal)
+}
+
+function updateUI(){
+    const isModalOpen = !document
+        .getElementById("modalOverlay")
+        .classList.contains("hidden")
+
+    // 🔥 AGGIUNGI QUESTA RIGA
+    updateActionMenuButtons()
+
+    // FAB nascosto se modal aperto
+    fab.classList.toggle("hidden", isModalOpen)
+
+    // HOME visibile solo in checklist e senza modal
+    const showHome = activeChecklistIndex !== null && !isModalOpen
+    backToHome.classList.toggle("hidden", !showHome)
 }
 
 // ---------- Utility ----------

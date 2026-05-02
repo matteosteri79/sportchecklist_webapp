@@ -1,19 +1,26 @@
-const modalOverlay = document.getElementById("modalOverlay")
+const overlay = document.getElementById("modalOverlay")
 const modal = document.getElementById("modal")
 
+// Apri modal
 export function openModal(content){
     modal.innerHTML = content
-    modalOverlay.classList.remove("hidden")
-    document.body.classList.add("modal-open")
+    overlay.classList.remove("hidden")
+
+    // 🔔 notifica apertura
+    document.dispatchEvent(new Event("modalOpened"))
 }
 
+// Chiudi modal
 export function closeModal(){
-    modalOverlay.classList.add("hidden")
-    document.body.classList.remove("modal-open")
+    overlay.classList.add("hidden")
+
+    // 🔔 notifica chiusura
+    document.dispatchEvent(new Event("modalClosed"))
 }
 
-modalOverlay.onclick = (e)=>{
-    if(e.target === modalOverlay){
+// Click fuori → chiudi
+overlay.addEventListener("click", (e)=>{
+    if(e.target === overlay){
         closeModal()
     }
-}
+})
