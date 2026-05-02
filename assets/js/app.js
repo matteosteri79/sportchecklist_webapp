@@ -569,19 +569,31 @@ document.getElementById("resetChecklistBtn").addEventListener("click", ()=>{
 // ---------- UI ----------
 function updateActionMenuButtons(){
     const hasActiveChecklist = activeChecklistIndex !== null
-    const addCatBtn = document.getElementById("addCategoryBtn")
-    const addItemBtn = document.getElementById("addItemBtn")
-    const backToHomeBtn = document.getElementById("backToHomeBtn")
-    const resetBtn = document.getElementById("resetChecklistBtn")
 
-    if(addCatBtn)
-        addCatBtn.classList.toggle("hidden", !hasActiveChecklist)
-    if(addItemBtn)
-        addItemBtn.classList.toggle("hidden", !hasActiveChecklist)
-    if(backToHomeBtn)
-        backToHomeBtn.classList.toggle("hidden", !hasActiveChecklist)
-    if(resetBtn)
-        resetBtn.classList.toggle("hidden", !hasActiveChecklist)
+    const loadBtn = document.getElementById("loadTemplateBtn")
+    const createBtn = document.getElementById("createChecklistBtn")
+    const addCatBtn = document.getElementById("addCategoryBtn")
+    const resetBtn = document.getElementById("resetChecklistBtn")
+    const backToHomeBtn = document.getElementById("backToHomeBtn")
+
+    // 👉 HOME (nessuna checklist aperta)
+    if(!hasActiveChecklist){
+        loadBtn.classList.remove("hidden")
+        createBtn.classList.remove("hidden")
+
+        addCatBtn.classList.add("hidden")
+        resetBtn.classList.add("hidden")
+        backToHomeBtn.classList.add("hidden")
+        return
+    }
+
+    // 👉 CHECKLIST APERTA
+    loadBtn.classList.add("hidden")
+    createBtn.classList.add("hidden")
+
+    addCatBtn.classList.remove("hidden")
+    resetBtn.classList.remove("hidden")
+    backToHomeBtn.classList.remove("hidden")
 }
 
 function resetChecklist(sIndex){
