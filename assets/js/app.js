@@ -504,6 +504,35 @@ function addItemModal(sIndex,cIndex){
         })
 }
 
+function renameChecklistModal(sIndex){
+    closeActionMenu()
+
+    const checklist = data[sIndex]
+
+    openModal(`
+        <h2>Rinomina checklist</h2>
+        <input id="renameChecklistName" placeholder="Nome checklist">
+        <button id="modalRenameChecklistBtn">Salva</button>
+    `)
+
+    document.getElementById("renameChecklistName").value = checklist.name
+
+    document.getElementById("modalRenameChecklistBtn")
+        .addEventListener("click", ()=>{
+            const name = capitalizeFirst(
+                document.getElementById("renameChecklistName").value.trim()
+            )
+
+            if(!name) return
+
+            checklist.name = name
+
+            save()
+            render()
+            closeModal()
+        })
+}
+
 
 function loadTemplateModal(){
 
@@ -560,6 +589,11 @@ document.getElementById("addCategoryBtn").addEventListener("click", ()=>{
         addCategoryModal(activeChecklistIndex)
     }
 })
+document.getElementById("renameChecklistBtn").addEventListener("click", ()=>{
+    if(activeChecklistIndex !== null){
+        renameChecklistModal(activeChecklistIndex)
+    }
+})
 document.getElementById("loadTemplateBtn").addEventListener("click", ()=>{
     loadTemplateModal()
 })
@@ -576,6 +610,7 @@ function updateActionMenuButtons(){
     const loadBtn = document.getElementById("loadTemplateBtn")
     const createBtn = document.getElementById("createChecklistBtn")
     const addCatBtn = document.getElementById("addCategoryBtn")
+    const renameBtn = document.getElementById("renameChecklistBtn")
     const resetBtn = document.getElementById("resetChecklistBtn")
     const backToHomeBtn = document.getElementById("backToHomeBtn")
 
@@ -585,6 +620,7 @@ function updateActionMenuButtons(){
         createBtn.classList.remove("hidden")
 
         addCatBtn.classList.add("hidden")
+        renameBtn.classList.add("hidden")
         resetBtn.classList.add("hidden")
         backToHomeBtn.classList.add("hidden")
         return
@@ -595,6 +631,7 @@ function updateActionMenuButtons(){
     createBtn.classList.add("hidden")
 
     addCatBtn.classList.remove("hidden")
+    renameBtn.classList.remove("hidden")
     resetBtn.classList.remove("hidden")
     backToHomeBtn.classList.remove("hidden")
 }
