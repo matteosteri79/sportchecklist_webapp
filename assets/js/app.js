@@ -2,7 +2,7 @@
 // ---------- Service Worker ----------
 if ("serviceWorker" in navigator) {
     window.addEventListener("load", () => {
-        navigator.serviceWorker.register("/service-worker.js");
+        navigator.serviceWorker.register("./service-worker.js");
     });
 }
 
@@ -100,6 +100,7 @@ function render(){
 // ---------- HOME ----------
 function renderHome(){
     sportsList.innerHTML = ""
+    const installHint = getInstallHint()
 
     // HOME senza checklist
     if(data.length === 0){
@@ -111,6 +112,7 @@ function renderHome(){
             <img src="assets/images/logo_sportchecklist.png" alt="Benvenuto">
             <p>Benvenuto in Sport Checklist</p>
             <p>Crea la tua prima checklist dal menu in basso.</p>
+            ${installHint}
             `
         return
     }
@@ -143,6 +145,9 @@ function renderHome(){
     })
 
     sportsList.appendChild(ul)
+    welcome.style.display = installHint ? "block" : "none"
+    welcome.innerHTML = installHint
+
     ul.addEventListener("click",(e)=>{
 
         const actionEl = e.target.closest("[data-action]")
@@ -713,6 +718,27 @@ function updateUI(){
 function capitalizeFirst(text){
     if(!text) return ""
     return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase()
+}
+
+function isStandaloneApp(){
+    return window.matchMedia("(display-mode: standalone)").matches ||
+        window.navigator.standalone === true
+}
+
+function isIOS(){
+    return /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+        (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1)
+}
+
+function getInstallHint(){
+    if(!isIOS() || isStandaloneApp()) return ""
+
+    return `
+        <div class="install-hint">
+            <p><strong>Aggiungi Sport Checklist alla schermata Home</strong></p>
+            <p>Su iPhone apri Safari, tocca Condividi, scegli "Aggiungi a schermata Home" e poi "Aggiungi".</p>
+        </div>
+    `
 }
 
 // ---------- Init ----------

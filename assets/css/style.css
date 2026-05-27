@@ -67,6 +67,27 @@ body.modal-open {
     margin-bottom:20px;
 }
 
+.install-hint{
+    max-width:360px;
+    margin:24px auto 0;
+    padding:14px 16px;
+    background:#ffffff;
+    border:1px solid #d7eee2;
+    border-radius:8px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.08);
+    color:#444;
+}
+
+.install-hint p{
+    margin:0;
+    line-height:1.4;
+}
+
+.install-hint p + p{
+    margin-top:6px;
+    font-size:14px;
+}
+
 .fab{
     position:fixed;
     bottom:20px;
