@@ -8,7 +8,7 @@ if ("serviceWorker" in navigator) {
 
 // ---------- Import ----------
 import { openModal, closeModal } from "./modal.js"
-import { APP_VERSION,SUPPORT_EMAIL } from "./utils.js"
+import { APP_VERSION,SUPPORT_EMAIL,PLAY_STORE_URL } from "./utils.js"
 
 // ---------- Elementi DOM ----------
 const sportsList = document.getElementById("sportsList")
@@ -730,15 +730,42 @@ function isIOS(){
         (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1)
 }
 
-function getInstallHint(){
-    if(!isIOS() || isStandaloneApp()) return ""
+function isAndroid(){
+    return /Android/.test(navigator.userAgent)
+}
 
-    return `
-        <div class="install-hint">
-            <p><strong>Aggiungi Sport Checklist alla schermata Home</strong></p>
-            <p>Su iPhone apri Safari, tocca Condividi, scegli "Aggiungi a schermata Home" e poi "Aggiungi".</p>
-        </div>
-    `
+function getInstallHint(){
+    if(isStandaloneApp()) return ""
+
+    if(isIOS()){
+        return `
+            <div class="install-hint">
+                <p><strong>Aggiungi Sport Checklist alla schermata Home</strong></p>
+                <p>Su iPhone apri Safari, tocca Condividi, scegli "Aggiungi a schermata Home" e poi "Aggiungi".</p>
+            </div>
+        `
+    }
+
+    if(isAndroid()){
+        if(PLAY_STORE_URL){
+            return `
+                <div class="install-hint">
+                    <p><strong>Scarica Sport Checklist per Android</strong></p>
+                    <p>Installa l'app dal Play Store per averla sempre a portata di mano.</p>
+                    <a class="install-link" href="${PLAY_STORE_URL}" target="_blank" rel="noopener">Apri Play Store</a>
+                </div>
+            `
+        }
+
+        return `
+            <div class="install-hint">
+                <p><strong>Installa Sport Checklist sul telefono</strong></p>
+                <p>Su Android apri il menu del browser e scegli "Installa app" o "Aggiungi a schermata Home".</p>
+            </div>
+        `
+    }
+
+    return ""
 }
 
 // ---------- Init ----------
