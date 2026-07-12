@@ -465,3 +465,28 @@ body.modal-open {
 .textcenter {
     text-align: center;
 }
+.language-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 12px;
+    cursor: pointer;
+
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
+}
+
+.language-option:hover {
+    background-color: rgba(0,0,0,0.08);
+}
+
+.language-option img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}
+
+.language-option span {
+    font-size: 16px;
+}

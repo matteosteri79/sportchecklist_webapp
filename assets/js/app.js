@@ -9,6 +9,14 @@ if ("serviceWorker" in navigator) {
 // ---------- Import ----------
 import { openModal, closeModal } from "./modal.js"
 import { APP_VERSION,SUPPORT_EMAIL,PLAY_STORE_URL } from "./utils.js"
+import {
+    initLanguage,
+    setLanguage,
+    getLanguage,
+    getEffectiveLanguage,
+    SUPPORTED_LANGUAGES,
+    t
+} from "./language.js"
 
 // ---------- Elementi DOM ----------
 const sportsList = document.getElementById("sportsList")
@@ -40,14 +48,21 @@ fab.addEventListener("click", () => {
     actionMenu.classList.toggle("hidden")
 })
 
+// ---------- Logo ----------
+function getLogoImage() {
+    return getEffectiveLanguage() === "en"
+        ? "assets/images/logo_sportchecklist_en.png"
+        : "assets/images/logo_sportchecklist_it.png"
+}
+
 // ---------- Creazione checklist ----------
 document.getElementById("createChecklistBtn").addEventListener("click", () => {
     closeActionMenu()
 
     openModal(`
-        <h2>Crea checklist</h2>
-        <input id="newChecklistName" placeholder="Nome sport">
-        <button id="modalCreateBtn">Crea</button>
+        <h2>${t("modal.createChecklist")}</h2>
+        <input id="newChecklistName" placeholder="${t("modal.sportName")}">
+        <button id="modalCreateBtn">${t("modal.create")}</button>
     `)
 
     document.getElementById("modalCreateBtn").addEventListener("click", () => {
@@ -109,11 +124,11 @@ function renderHome(){
 
         welcome.style.display = "block"
         welcome.innerHTML = `
-            <img src="assets/images/logo_sportchecklist.png" alt="Benvenuto">
-            <p>Benvenuto in Sport Checklist</p>
-            <p>Crea la tua prima checklist dal menu in basso.</p>
+            <img src="${getLogoImage()}" alt="Sport Checklist">
+            <p>${t("home.welcome")}</p>
+            <p>${t("home.createFirst")}</p>
             ${installHint}
-            `
+        `
         return
     }
 
@@ -121,7 +136,7 @@ function renderHome(){
     welcome.style.display = "none"
     activeChecklist.style.display = "block"
     title.style.display = "block"
-    title.textContent = "Le tue checklist"
+    title.textContent = t("home.yourChecklists")
     document.getElementById("checklistProgress").classList.add("hidden")
 
     const ul = document.createElement("ul")
@@ -178,7 +193,7 @@ function renderChecklist(){
     welcome.style.display = "none"
     activeChecklist.style.display = "block"
     title.style.display = "block"
-    title.textContent = "📋 Checklist: " + checklist.name
+    title.textContent = "📋 " + t("checklist.title") + " " + checklist.name
     sportsList.innerHTML = ""
     document.getElementById("checklistProgress").classList.remove("hidden")
 
@@ -262,9 +277,9 @@ delete
 function addCategoryModalAfterCreate(sIndex){
 
     openModal(`
-        <h2>Crea prima categoria</h2>
-        <input id="newCategoryName" placeholder="Nome categoria">
-        <button id="modalAddCategoryBtn">Continua</button>
+        <h2>${t("modal.createFirstCategory")}</h2>
+        <input id="newCategoryName" placeholder="${t("modal.categoryName")}">
+        <button id="modalAddCategoryBtn">${t("modal.continue")}</button>
     `)
 
     document.getElementById("modalAddCategoryBtn")
@@ -296,9 +311,9 @@ function addCategoryModalAfterCreate(sIndex){
 function addFirstItemModal(sIndex, cIndex){
 
     openModal(`
-        <h2>Aggiungi primo oggetto</h2>
-        <input id="newItemName" placeholder="Nome oggetto">
-        <button id="modalAddItemBtn">Crea</button>
+        <h2>${t("modal.addFirstItem")}</h2>
+        <input id="newItemName" placeholder="${t("modal.itemName")}">
+        <button id="modalAddItemBtn">${t("modal.create")}</button>
     `)
 
     document.getElementById("modalAddItemBtn")
@@ -321,30 +336,51 @@ function addFirstItemModal(sIndex, cIndex){
         })
 }
 
-function openSettingsModal(){
-    openModal(`
-        <h2>Impostazioni</h2>
-
-        <p><strong>Tema</strong></p>
-        <p>Prossimamente</p>
-
-        <p><strong>Lingua</strong></p>
-        <p>Prossimamente</p>
-    `)
-}
-
 function openInfoModal(){
     openModal(`
         <div class="textcenter">
-            <img src="assets/images/logo_sportchecklist.png" class="info-logo" alt="Benvenuto">
+            <img src="${getLogoImage()}" class="info-logo" alt="Sport Checklist">
             <p><strong>v. ${APP_VERSION}</strong></p>
-            <p><small>WebApp sviluppata per preparare la tua prossima gara e non dimenticarti nulla.<br>
-            Buona fortuna e buona gara!</small></p>
-            <p>Contattaci per supporto o feedback:<br><a href="mailto:${SUPPORT_EMAIL}" class="mail-link">
-                <span class="material-icons mail-icon">mail</span> Scrivici</a>
+            <p><small>${t("info.description")}<br>
+            ${t("info.goodLuck")}</small></p>
+            <p>${t("info.contact")}<br>
+                <span class="material-icons mail-icon">mail</span> ${t("info.write")}
             </p>
         </div>
     `)
+}
+
+// ---------- Language Modal ----------
+
+function openLanguageModal(){
+    openModal(`
+        <h2>${t("language.title")}</h2>
+        <div class="language-option" data-language="${SUPPORTED_LANGUAGES.SYSTEM}">
+            <img src="assets/images/flag_system.png" alt="${t("language.system")}">
+            <span>${t("language.system")}</span>
+        </div>
+        
+        <div class="language-option" data-language="${SUPPORTED_LANGUAGES.ITALIAN}">
+            <img src="assets/images/flag_it.png" alt="${t("language.italian")}">
+            <span>${t("language.italian")}</span>
+        </div>
+        
+        <div class="language-option" data-language="${SUPPORTED_LANGUAGES.ENGLISH}">
+            <img src="assets/images/flag_en.png" alt="${t("language.english")}">
+            <span>${t("language.english")}</span>
+        </div>
+    `)
+
+    document
+        .querySelectorAll(".language-option")
+        .forEach(option => {
+            option.addEventListener("click", ()=>{
+                setLanguage(
+                    option.dataset.language
+                )
+                document.documentElement.lang = getLanguage()
+            })
+        })
 }
 
 // ---------- Eventi lista ----------
@@ -381,6 +417,9 @@ topMenu.addEventListener("click", (e)=>{
     const action = actionEl.dataset.action
     if(action === "openSettings"){
         openSettingsModal()
+    }
+    if(action === "openLanguage"){
+        openLanguageModal()
     }
     if(action === "openInfo"){
         openInfoModal()
@@ -456,9 +495,9 @@ function deleteItem(s,c,i){
 function addCategoryModal(sIndex){
     closeActionMenu()
     openModal(`
-        <h2>Aggiungi categoria</h2>
-        <input id="newCategoryName" placeholder="Nome categoria">
-        <button id="modalAddCategoryBtn">Aggiungi</button>
+        <h2>${t("modal.addCategory")}</h2>
+        <input id="newCategoryName" placeholder="${t("modal.categoryName")}">
+        <button id="modalAddCategoryBtn">${t("modal.add")}</button>
     `)
 
     document.getElementById("modalAddCategoryBtn")
@@ -485,9 +524,9 @@ function addItemModal(sIndex,cIndex){
 
     closeActionMenu()
     openModal(`
-    <h2>Aggiungi oggetto</h2>
-    <input id="newItemName" placeholder="Nome oggetto">
-    <button id="modalAddItemBtn">Aggiungi</button>
+        <h2>${t("modal.addItem")}</h2>
+        <input id="newItemName" placeholder="${t("modal.itemName")}">
+        <button id="modalAddItemBtn">${t("modal.add")}</button>
     `)
 
     document.getElementById("modalAddItemBtn")
@@ -515,9 +554,9 @@ function renameChecklistModal(sIndex){
     const checklist = data[sIndex]
 
     openModal(`
-        <h2>Rinomina checklist</h2>
-        <input id="renameChecklistName" placeholder="Nome checklist">
-        <button id="modalRenameChecklistBtn">Salva</button>
+        <h2>${t("modal.renameChecklist")}</h2>
+        <input id="renameChecklistName" placeholder="${t("modal.checklistName")}">
+        <button id="modalRenameChecklistBtn">${t("modal.save")}</button>
     `)
 
     document.getElementById("renameChecklistName").value = checklist.name
@@ -546,7 +585,7 @@ function loadTemplateModal(){
     const templates = Templates.filter(t => t.visible)
 
     if(!templates.length){
-        alert("Nessun template disponibile")
+        alert(t("alert.noTemplate"))
         return
     }
 
@@ -555,9 +594,9 @@ function loadTemplateModal(){
         .join("")
 
     openModal(`
-        <h2>Carica checklist</h2>
+        <h2>${t("modal.loadChecklist")}</h2>
         <select id="templateSelect">${options}</select>
-        <button id="modalLoadTemplateBtn">Carica</button>
+        <button id="modalLoadTemplateBtn">${t("modal.load")}</button>
     `)
 
     document.getElementById("modalLoadTemplateBtn").addEventListener("click", () => {
@@ -673,7 +712,7 @@ function updateChecklistProgress(checklist){
 
     document.getElementById("progressFill").style.width = percent + "%"
     document.getElementById("progressText").textContent =
-        `${done} / ${total} oggetti presi`
+        `${done} / ${total} ${t("progress.itemsTaken")}`
     document.getElementById("progressPercent").textContent =
         percent + "%"
 }
@@ -681,12 +720,16 @@ function updateChecklistProgress(checklist){
 function openResetModal(){
     closeActionMenu()
     openModal(`
-        <h2>Reset checklist</h2>
+        <h2>${t("modal.resetChecklist")}</h2>
         <div class="textcenter">
         
-            <p><span class="material-icons alert-icon">warning</span> Sei sicuro di voler deselezionare tutti gli elementi? L'azione non può essere annullata!</p>
-            <button id="confirmResetBtn">Reset</button>
-            <button id="cancelResetBtn">Annulla</button>
+            <p>
+            <span class="material-icons alert-icon">warning</span>
+            ${t("modal.resetWarning")}
+            </p>
+    
+            <button id="confirmResetBtn">${t("modal.resetChecklist")}</button>
+            <button id="cancelResetBtn">${t("modal.cancel")}</button>
         </div>
     `)
     document.getElementById("confirmResetBtn")
@@ -740,8 +783,8 @@ function getInstallHint(){
     if(isIOS()){
         return `
             <div class="install-hint">
-                <p><strong>Aggiungi Sport Checklist alla schermata Home</strong></p>
-                <p>Su iPhone apri Safari, tocca Condividi, scegli "Aggiungi a schermata Home" e poi "Aggiungi".</p>
+                <p><strong>${t("install.iosTitle")}</strong></p>
+                <p>${t("install.iosText")}</p>
             </div>
         `
     }
@@ -750,17 +793,19 @@ function getInstallHint(){
         if(PLAY_STORE_URL){
             return `
                 <div class="install-hint">
-                    <p><strong>Scarica Sport Checklist per Android</strong></p>
-                    <p>Installa l'app dal Play Store per averla sempre a portata di mano.</p>
-                    <a class="install-link" href="${PLAY_STORE_URL}" target="_blank" rel="noopener">Apri Play Store</a>
+                    <p><strong>${t("install.playStoreTitle")}</strong></p>
+                    <p>${t("install.playStoreText")}</p>
+                    <a class="install-link" href="${PLAY_STORE_URL}" target="_blank" rel="noopener">
+                        ${t("install.playStoreButton")}
+                    </a>
                 </div>
             `
         }
 
         return `
             <div class="install-hint">
-                <p><strong>Installa Sport Checklist sul telefono</strong></p>
-                <p>Su Android apri il menu del browser e scegli "Installa app" o "Aggiungi a schermata Home".</p>
+                <p><strong>${t("install.androidTitle")}</strong></p>
+                <p>${t("install.androidText")}</p>
             </div>
         `
     }
@@ -770,8 +815,10 @@ function getInstallHint(){
 
 // ---------- Init ----------
 async function init(){
+    await initLanguage()
     await loadTemplates()
     render()
 }
 
 init()
+
