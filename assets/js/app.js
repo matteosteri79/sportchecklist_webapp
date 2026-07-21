@@ -20,8 +20,7 @@ import {
 import {
     applyTheme,
     getTheme,
-    setTheme,
-    THEMES
+    setTheme
 } from "./theme.js"
 
 // ---------- Elementi DOM ----------
@@ -368,10 +367,10 @@ function openLanguageModal(){
                 <span>${t("language.system")}</span>
             </div>        
             ${
-        currentLanguage === SUPPORTED_LANGUAGES.SYSTEM
-            ? '<span class="material-icons check-active">check</span>'
-            : ''
-    }
+                currentLanguage === SUPPORTED_LANGUAGES.SYSTEM
+                    ? '<span class="material-icons check-active">check</span>'
+                    : ''
+            }
         </div>
         <div class="language-option" data-language="${SUPPORTED_LANGUAGES.ITALIAN}">
             <div class="language-info">
@@ -379,10 +378,10 @@ function openLanguageModal(){
                 <span>${t("language.italian")}</span>
             </div>        
             ${
-        currentLanguage === SUPPORTED_LANGUAGES.ITALIAN
-            ? '<span class="material-icons check-active">check</span>'
-            : ''
-    }
+                currentLanguage === SUPPORTED_LANGUAGES.ITALIAN
+                    ? '<span class="material-icons check-active">check</span>'
+                    : ''
+            }
         </div>
         <div class="language-option" data-language="${SUPPORTED_LANGUAGES.ENGLISH}">
             <div class="language-info">
@@ -391,6 +390,39 @@ function openLanguageModal(){
             </div>        
             ${
         currentLanguage === SUPPORTED_LANGUAGES.ENGLISH
+            ? '<span class="material-icons check-active">check</span>'
+            : ''
+    }
+        </div>
+        <div class="language-option" data-language="${SUPPORTED_LANGUAGES.FRENCH}">
+            <div class="language-info">
+                <img src="assets/images/flag_fr.png" alt="${t("language.french")}">
+                <span>${t("language.french")}</span>
+            </div>        
+            ${
+        currentLanguage === SUPPORTED_LANGUAGES.FRENCH
+            ? '<span class="material-icons check-active">check</span>'
+            : ''
+    }
+        </div>
+        <div class="language-option" data-language="${SUPPORTED_LANGUAGES.SPANISH}">
+            <div class="language-info">
+                <img src="assets/images/flag_es.png" alt="${t("language.spanish")}">
+                <span>${t("language.spanish")}</span>
+            </div>        
+            ${
+        currentLanguage === SUPPORTED_LANGUAGES.SPANISH
+            ? '<span class="material-icons check-active">check</span>'
+            : ''
+    }
+        </div>
+        <div class="language-option" data-language="${SUPPORTED_LANGUAGES.GERMAN}">
+            <div class="language-info">
+                <img src="assets/images/flag_de.png" alt="${t("language.german")}">
+                <span>${t("language.german")}</span>
+            </div>        
+            ${
+        currentLanguage === SUPPORTED_LANGUAGES.GERMAN
             ? '<span class="material-icons check-active">check</span>'
             : ''
     }
@@ -413,12 +445,12 @@ function openLanguageModal(){
 function openThemeModal(){
     const currentTheme = getTheme()
     openModal(`
-        <h2>Tema</h2>
+        <h2>${t("themes.title")}</h2>
 
         <div class="theme-option" data-theme="green">
             <div class="theme-info">
                 <span class="material-icons theme-icon green">palette</span>
-                <span>Verde</span>
+                <span>${t("themes.green")}</span>
             </div>        
             ${
                 currentTheme === "green"
@@ -429,7 +461,7 @@ function openThemeModal(){
         <div class="theme-option" data-theme="red">
             <div class="theme-info">
                 <span class="material-icons theme-icon red">palette</span>
-                <span>Rosso</span>
+                <span>${t("themes.red")}</span>
             </div>        
             ${
                 currentTheme === "red"
@@ -441,7 +473,7 @@ function openThemeModal(){
         <div class="theme-option" data-theme="blue">
             <div class="theme-info">
                 <span class="material-icons theme-icon blue">palette</span>
-                <span>Blu</span>
+                <span>${t("themes.blue")}</span>
             </div>        
             ${
                 currentTheme === "blue"
@@ -453,7 +485,7 @@ function openThemeModal(){
         <div class="theme-option" data-theme="purple">
             <div class="theme-info">
                 <span class="material-icons theme-icon purple">palette</span>
-                <span>Viola</span>
+                <span>${t("themes.purple")}</span>
             </div>        
             ${
                 currentTheme === "purple"
@@ -465,7 +497,7 @@ function openThemeModal(){
         <div class="theme-option" data-theme="orange">
             <div class="theme-info">
                 <span class="material-icons theme-icon orange">palette</span>
-                <span>Arancione</span>
+                <span>${t("themes.orange")}</span>
             </div>        
             ${
                 currentTheme === "orange"

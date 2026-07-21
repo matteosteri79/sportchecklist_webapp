@@ -9,21 +9,17 @@ export const THEMES = {
     RED: "red",
     PURPLE: "purple"
 }
-export function getTheme(){
 
+export function getTheme(){
     return localStorage.getItem(THEME_STORAGE_KEY)
         || THEMES.GREEN
-
 }
 export function setTheme(theme){
-
     localStorage.setItem(
         THEME_STORAGE_KEY,
         theme
     )
-
     applyTheme(theme)
-
 }
 export function applyTheme(theme){
     const colors = COLORS[theme]

@@ -8,7 +8,10 @@ const LANGUAGE_STORAGE_KEY = "sportChecklistLanguage"
 const SUPPORTED_LANGUAGES = {
     SYSTEM: "system",
     ITALIAN: "it",
-    ENGLISH: "en"
+    ENGLISH: "en",
+    FRENCH: "fr",
+    SPANISH: "es",
+    GERMAN: "de"
 }
 
 
@@ -46,10 +49,16 @@ export function getEffectiveLanguage(){
             navigator.language
                 ?.substring(0,2)
                 .toLowerCase()
-        return browserLanguage === "en"
-            ? "en"
-            : "it"
+        if(
+            Object.values(SUPPORTED_LANGUAGES)
+                .includes(browserLanguage)
+        ){
+            return browserLanguage
+        }
+
+        return "it"
     }
+
     return currentLanguage
 }
 

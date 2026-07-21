@@ -83,13 +83,17 @@
         "title": "Lingua",
         "system": "Lingua di sistema",
         "italian": "Italiano",
-        "english": "English"
+        "english": "English",
+        "french": "Français",
+        "spanish": "Español",
+        "german": "Deutsch"
     },
-
-    "theme": {
+    "themes": {
         "title": "Tema",
-        "system": "Tema di sistema",
-        "italian": "Italiano",
-        "english": "English"
+        "green": "Sport Green",
+        "red": "Racing Red",
+        "blue": "Ocean Blue",
+        "purple": "Purple Energy",
+        "orange": "Sunset Orange"
     }
 }
