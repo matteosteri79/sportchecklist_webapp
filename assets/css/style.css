@@ -1,6 +1,12 @@
+/* VERDE BASE:   #5bc08f */
 /* VERDE SCURO:  #279861 */
-/* VERDE CHIARO: #5bc08f */
+/* VERDE CHIARO: #CCF0DF */
 
+:root {
+    --theme-primary: #5BC08F;
+    --theme-light: #CCF0DF;
+    --theme-dark: #279861;
+}
 
 /*** GENERALE ***/
 body{
@@ -16,7 +22,7 @@ header{
 }
 h1,h2,h3,h4,h5,h6 {
     margin-left:10px;
-    color: #279861;
+    color: var(--theme-dark);
 }
 
 .content{
@@ -93,7 +99,7 @@ body.modal-open {
     margin-top:12px;
     padding:8px 12px;
     border-radius:6px;
-    background:#279861;
+    background:var(--theme-dark);
     color:#ffffff;
     font-size:14px;
     font-weight:600;
@@ -107,15 +113,15 @@ body.modal-open {
     width:60px;
     height:60px;
     border-radius:50%;
-    background:#279861;
+    background:var(--theme-dark);
     color:white;
     display:flex;
     align-items:center;
     justify-content:center;
     cursor:pointer;
     box-shadow:0 4px 10px rgba(0,0,0,0.3);
-    font-size: 36px; /* dimensione icona */
-    line-height: normal; /* line-height normale quando usi icona */
+    font-size: 36px;
+    line-height: normal;
     z-index: 100;
 }
 
@@ -126,15 +132,15 @@ body.modal-open {
     width:60px;
     height:60px;
     border-radius:50%;
-    background:#279861;
+    background:var(--theme-dark);
     color:white;
     display:flex;
     align-items:center;
     justify-content:center;
     cursor:pointer;
     box-shadow:0 4px 10px rgba(0,0,0,0.3);
-    font-size: 36px; /* dimensione icona */
-    line-height: normal; /* line-height normale quando usi icona */
+    font-size: 36px;
+    line-height: normal;
     z-index: 100;
 }
 
@@ -188,7 +194,7 @@ body.modal-open {
     padding:6px 8px;
     border:none;
     border-radius:6px;
-    background: #5bc08f;
+    background: var(--theme-primary);
     box-shadow:0 2px 6px rgba(0,0,0,0.2);
     cursor:pointer;
 }
@@ -243,7 +249,7 @@ body.modal-open {
 }
 
 .top-menu div:hover {
-    background: #f0f0f0;
+    background: var(--theme-light);
 }
 .menu-icon {
     color: #333; /* oppure #000 */
@@ -259,7 +265,7 @@ body.modal-open {
 }
 
 .menu-item:hover {
-    background: rgba(0,0,0,0.05);
+    background: var(--theme-light);
 }
 
 
@@ -280,7 +286,7 @@ body.modal-open {
     height:100%;
     width:0%;
     border-radius:20px;
-    background:linear-gradient(90deg,#5bc08f,#279861);
+    background:linear-gradient(90deg,var(--theme-primary),var(--theme-dark));
     transition:width 0.35s ease;
 }
 .progress-info{
@@ -301,7 +307,7 @@ body.modal-open {
     gap:6px;
 }
 .progress-complete{
-     background:linear-gradient(90deg,#279861,#1f7a4f);
+     background:linear-gradient(90deg,var(--theme-dark),#1f7a4f);
  }
 .trophy{
     color:gold;
@@ -309,14 +315,14 @@ body.modal-open {
 
 /*** categorie ***/
 .category-block{
-    border:1px solid #279861;
+    border:1px solid var(--theme-dark);
     border-radius:8px;
     margin-bottom:12px;
     overflow:hidden;
     padding:0px !important;
 }
 .category-header{
-    background:#5bc08f;
+    background:var(--theme-primary);
     color: #ffffff;
     display:flex;
     justify-content:space-between;
@@ -430,7 +436,6 @@ body.modal-open {
     width: 100%;
     padding: 10px 12px;
 }
-
 .fab-item .material-icons {
     font-size: 20px;
 }
@@ -447,7 +452,6 @@ body.modal-open {
     gap: 6px;
     text-decoration: none;
 }
-
 .mail-icon {
     font-size: 18px;
 }
@@ -461,32 +465,72 @@ body.modal-open {
      color: #e53935; /* rosso warning */
      font-size: 28px;
  }
-
 .textcenter {
     text-align: center;
 }
 .language-option {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 12px;
-
     padding: 12px;
     cursor: pointer;
-
     border-radius: 8px;
     transition: background-color 0.2s ease;
 }
-
-.language-option:hover {
-    background-color: rgba(0,0,0,0.08);
+.language-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
-
+.language-option:hover {
+    background: var(--theme-light);
+}
 .language-option img {
     width: 32px;
     height: 32px;
     object-fit: contain;
 }
-
 .language-option span {
     font-size: 16px;
+}
+.check-active {
+     color: var(--theme-dark);
+     font-size: 22px!important;
+ }
+
+/* ---------- Theme Selector ---------- */
+.theme-option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px;
+    cursor: pointer;
+    border-radius: 8px;
+}
+.theme-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.theme-option:hover {
+    background: var(--theme-light);
+}
+.theme-icon {
+    font-size: 28px;
+}
+.theme-icon.green {
+    color: #5BC08F;
+}
+.theme-icon.blue {
+    color: #4A90E2;
+}
+.theme-icon.orange {
+    color: #FFA726;
+}
+.theme-icon.red {
+    color: #EF5350;
+}
+.theme-icon.purple {
+    color: #AB47BC;
 }

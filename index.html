@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Sport Checklist</title>
-    <meta name="theme-color" content="#279861">
+    <meta name="theme-color" content="var(--theme-dark)">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="Sport Checklist">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -35,11 +35,14 @@
     <span id="menuBtn" class="material-icons menu-icon">more_vert</span>
     <div id="topMenu" class="top-menu hidden">
 
+        <div class="menu-item" data-action="openTheme">
+            <span class="material-icons">palette</span>
+            <span data-i18n="menu.theme">Tema</span>
+        </div>
         <div class="menu-item" data-action="openLanguage">
             <span class="material-icons">language</span>
             <span data-i18n="menu.language">Lingua</span>
         </div>
-
         <div class="menu-item" data-action="openInfo">
             <span class="material-icons">info</span>
             <span data-i18n="menu.info">Info</span>

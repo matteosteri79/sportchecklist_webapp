@@ -17,6 +17,12 @@ import {
     SUPPORTED_LANGUAGES,
     t
 } from "./language.js"
+import {
+    applyTheme,
+    getTheme,
+    setTheme,
+    THEMES
+} from "./theme.js"
 
 // ---------- Elementi DOM ----------
 const sportsList = document.getElementById("sportsList")
@@ -353,21 +359,41 @@ function openInfoModal(){
 // ---------- Language Modal ----------
 
 function openLanguageModal(){
+    const currentLanguage = getLanguage()
     openModal(`
         <h2>${t("language.title")}</h2>
         <div class="language-option" data-language="${SUPPORTED_LANGUAGES.SYSTEM}">
-            <img src="assets/images/flag_system.png" alt="${t("language.system")}">
-            <span>${t("language.system")}</span>
+            <div class="language-info">
+                <img src="assets/images/flag_system.png" alt="${t("language.system")}">
+                <span>${t("language.system")}</span>
+            </div>        
+            ${
+        currentLanguage === SUPPORTED_LANGUAGES.SYSTEM
+            ? '<span class="material-icons check-active">check</span>'
+            : ''
+    }
         </div>
-        
         <div class="language-option" data-language="${SUPPORTED_LANGUAGES.ITALIAN}">
-            <img src="assets/images/flag_it.png" alt="${t("language.italian")}">
-            <span>${t("language.italian")}</span>
+            <div class="language-info">
+                <img src="assets/images/flag_it.png" alt="${t("language.italian")}">
+                <span>${t("language.italian")}</span>
+            </div>        
+            ${
+        currentLanguage === SUPPORTED_LANGUAGES.ITALIAN
+            ? '<span class="material-icons check-active">check</span>'
+            : ''
+    }
         </div>
-        
         <div class="language-option" data-language="${SUPPORTED_LANGUAGES.ENGLISH}">
-            <img src="assets/images/flag_en.png" alt="${t("language.english")}">
-            <span>${t("language.english")}</span>
+            <div class="language-info">
+                <img src="assets/images/flag_en.png" alt="${t("language.english")}">
+                <span>${t("language.english")}</span>
+            </div>        
+            ${
+        currentLanguage === SUPPORTED_LANGUAGES.ENGLISH
+            ? '<span class="material-icons check-active">check</span>'
+            : ''
+    }
         </div>
     `)
 
@@ -379,6 +405,84 @@ function openLanguageModal(){
                     option.dataset.language
                 )
                 document.documentElement.lang = getLanguage()
+            })
+        })
+}
+
+// ---------- Theme Modal ----------
+function openThemeModal(){
+    const currentTheme = getTheme()
+    openModal(`
+        <h2>Tema</h2>
+
+        <div class="theme-option" data-theme="green">
+            <div class="theme-info">
+                <span class="material-icons theme-icon green">palette</span>
+                <span>Verde</span>
+            </div>        
+            ${
+                currentTheme === "green"
+                    ? '<span class="material-icons check-active">check</span>'
+                    : ''
+            }
+        </div>
+        <div class="theme-option" data-theme="red">
+            <div class="theme-info">
+                <span class="material-icons theme-icon red">palette</span>
+                <span>Rosso</span>
+            </div>        
+            ${
+                currentTheme === "red"
+                    ? '<span class="material-icons check-active">check</span>'
+                    : ''
+            }
+        </div>
+        
+        <div class="theme-option" data-theme="blue">
+            <div class="theme-info">
+                <span class="material-icons theme-icon blue">palette</span>
+                <span>Blu</span>
+            </div>        
+            ${
+                currentTheme === "blue"
+                    ? '<span class="material-icons check-active">check</span>'
+                    : ''
+            }
+        </div>
+        
+        <div class="theme-option" data-theme="purple">
+            <div class="theme-info">
+                <span class="material-icons theme-icon purple">palette</span>
+                <span>Viola</span>
+            </div>        
+            ${
+                currentTheme === "purple"
+                    ? '<span class="material-icons check-active">check</span>'
+                    : ''
+            }
+        </div>
+        
+        <div class="theme-option" data-theme="orange">
+            <div class="theme-info">
+                <span class="material-icons theme-icon orange">palette</span>
+                <span>Arancione</span>
+            </div>        
+            ${
+                currentTheme === "orange"
+                    ? '<span class="material-icons check-active">check</span>'
+                    : ''
+            }
+        </div>
+    `)
+
+    document
+        .querySelectorAll(".theme-option")
+        .forEach(option => {
+            option.addEventListener("click", ()=>{
+                setTheme(
+                    option.dataset.theme
+                )
+                closeModal()
             })
         })
 }
@@ -420,6 +524,9 @@ topMenu.addEventListener("click", (e)=>{
     }
     if(action === "openLanguage"){
         openLanguageModal()
+    }
+    if(action === "openTheme"){
+        openThemeModal()
     }
     if(action === "openInfo"){
         openInfoModal()
@@ -816,7 +923,11 @@ function getInstallHint(){
 // ---------- Init ----------
 async function init(){
     await initLanguage()
+    applyTheme(
+        getTheme()
+    )
     await loadTemplates()
+
     render()
 }
 

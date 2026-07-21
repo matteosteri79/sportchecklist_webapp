@@ -1,7 +1,8 @@
 {
     "menu": {
         "info": "Info",
-        "language": "Lingua"
+        "language": "Lingua",
+        "theme": "Tema"
     },
 
     "fab": {
@@ -81,6 +82,13 @@
     "language": {
         "title": "Lingua",
         "system": "Lingua di sistema",
+        "italian": "Italiano",
+        "english": "English"
+    },
+
+    "theme": {
+        "title": "Tema",
+        "system": "Tema di sistema",
         "italian": "Italiano",
         "english": "English"
     }

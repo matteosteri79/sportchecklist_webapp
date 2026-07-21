@@ -1,7 +1,8 @@
 {
   "menu": {
     "info": "Info",
-    "language": "Language"
+    "language": "Language",
+    "theme": "Theme"
   },
 
   "fab": {
