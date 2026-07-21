@@ -9,7 +9,7 @@ const urlsToCache=[
     "./assets/js/app.js",
     "./assets/js/modal.js",
     "./assets/js/utils.js",
-    "./assets/data/templates.json",
+    "./assets/data/it.json",
     "./assets/images/icon-192.png",
     "./assets/images/icon-512.png",
     "./assets/images/image_header.png",

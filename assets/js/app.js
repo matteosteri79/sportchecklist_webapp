@@ -35,7 +35,10 @@ const topMenu = document.getElementById("topMenu")
 // ---------- Dati ----------
 let Templates = []
 async function loadTemplates(){
-    const res = await fetch("assets/data/templates.json")
+    const language = getEffectiveLanguage()
+    const res = await fetch(
+        `assets/data/templates/${language}.json`
+    )
     const json = await res.json()
     Templates = json.templates
 }
