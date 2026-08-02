@@ -39,8 +39,7 @@ async function loadTemplates(){
     const res = await fetch(
         `assets/data/templates/${language}.json`
     )
-    const json = await res.json()
-    Templates = json.templates
+    Templates = await res.json()
 }
 let data = JSON.parse(localStorage.getItem("sportsData")) || []
 let activeChecklistIndex = null

@@ -1,7 +1,5 @@
-{
-  "templates": [
-
-    {
+[
+  {
       "id": "triathlon",
       "name": "Triathlon",
       "icon": "timeline",
@@ -275,4 +273,3 @@
     }
 
   ]
-}
