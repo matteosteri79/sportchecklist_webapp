@@ -1,11 +1,11 @@
-/* VERDE BASE:   #5bc08f */
-/* VERDE SCURO:  #279861 */
-/* VERDE CHIARO: #CCF0DF */
+/* ROSSO BASE:   #EF5350 */
+/* ROSSO CHIARO: #FFDAD8 */
+/* ROSSO SCURO:  #C62828 */
 
 :root {
-    --theme-primary: #5BC08F;
-    --theme-light: #CCF0DF;
-    --theme-dark: #279861;
+    --theme-primary: #EF5350;
+    --theme-light: #FFDAD8;
+    --theme-dark: #C62828;
 }
 
 /*** GENERALE ***/
@@ -70,7 +70,7 @@ body.modal-open {
 .welcome img{
     width:180px;
     opacity:0.9;
-    margin-bottom:20px;
+    margin-top:20px;
 }
 
 .install-hint{
@@ -144,6 +144,31 @@ body.modal-open {
     z-index: 100;
 }
 
+.logo-tagline{
+    margin-top: 0px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #333333;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: 'Oswald';font-size: 18px;
+}
+
+.mail-icon {
+    font-size: 18px;
+    vertical-align: middle;
+}
+
+.textcenter a {
+    color: var(--theme-primary);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.textcenter a:hover {
+    text-decoration: underline;
+}
+
 .action-menu{
     position:fixed;
     bottom:90px;
@@ -180,7 +205,7 @@ body.modal-open {
 
 .modal{
     background:white;
-    padding:20px;
+    padding:30px 20px;
     border-radius:10px;
     margin: 10px;
     width:90%;
@@ -270,7 +295,7 @@ body.modal-open {
 
 
 
-/*** sport ***/
+/*** Checklists ***/
 .checklist-progress{
     padding:12px;
     background:white;

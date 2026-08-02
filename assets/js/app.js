@@ -131,6 +131,7 @@ function renderHome(){
         welcome.style.display = "block"
         welcome.innerHTML = `
             <img src="${getLogoImage()}" alt="Sport Checklist">
+            <p class="logo-tagline">${t("home.tagline")}</p>
             <p>${t("home.welcome")}</p>
             <p>${t("home.createFirst")}</p>
             ${installHint}
@@ -346,11 +347,14 @@ function openInfoModal(){
     openModal(`
         <div class="textcenter">
             <img src="${getLogoImage()}" class="info-logo" alt="Sport Checklist">
+            <p class="logo-tagline">${t("info.tagline")}</p>
             <p><strong>v. ${APP_VERSION}</strong></p>
             <p><small>${t("info.description")}<br>
             ${t("info.goodLuck")}</small></p>
             <p>${t("info.contact")}<br>
-                <span class="material-icons mail-icon">mail</span> ${t("info.write")}
+                <a href="mailto:${SUPPORT_EMAIL}">
+                    <span class="material-icons mail-icon">mail</span> ${t("info.write")}
+                </a>
             </p>
         </div>
     `)

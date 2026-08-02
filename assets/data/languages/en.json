@@ -14,6 +14,7 @@
   },
 
   "home": {
+    "tagline": "Never forget anything",
     "welcome": "Welcome to Sport Checklist",
     "createFirst": "Create your first checklist from the bottom menu.",
     "yourChecklists": "Your checklists"
@@ -59,6 +60,7 @@
     "description": "WebApp developed to prepare for your next race and never forget anything.",
     "goodLuck": "Good luck and have a great race!",
     "contact": "Contact us for support or feedback:",
+    "tagline": "Never forget anything",
     "write": "Write to us",
     "welcome": "Welcome"
   },
