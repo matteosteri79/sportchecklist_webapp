@@ -1,4 +1,4 @@
-const CACHE_NAME="sport-checklist-v2"
+const CACHE_NAME="1.7.0"
 
 const urlsToCache=[
 
