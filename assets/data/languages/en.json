@@ -90,8 +90,8 @@
   },
   "themes": {
     "title": "Theme",
-    "green": "Sport Green",
     "red": "Racing Red",
+    "green": "Forest Green",
     "blue": "Ocean Blue",
     "purple": "Purple Energy",
     "orange": "Sunset Orange"

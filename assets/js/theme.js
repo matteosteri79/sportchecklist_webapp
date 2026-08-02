@@ -3,16 +3,16 @@ import { COLORS } from "./colors.js"
 const THEME_STORAGE_KEY = "sport_checklist_theme"
 
 export const THEMES = {
+    RED: "red",
     GREEN: "green",
     BLUE: "blue",
     ORANGE: "orange",
-    RED: "red",
     PURPLE: "purple"
 }
 
 export function getTheme(){
     return localStorage.getItem(THEME_STORAGE_KEY)
-        || THEMES.GREEN
+        || THEMES.RED
 }
 export function setTheme(theme){
     localStorage.setItem(

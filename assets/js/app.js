@@ -58,9 +58,7 @@ fab.addEventListener("click", () => {
 
 // ---------- Logo ----------
 function getLogoImage() {
-    return getEffectiveLanguage() === "en"
-        ? "assets/images/logo_sportchecklist_en.png"
-        : "assets/images/logo_sportchecklist_it.png"
+    return "assets/images/logo.png"
 }
 
 // ---------- Creazione checklist ----------

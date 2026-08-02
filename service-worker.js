@@ -12,9 +12,8 @@ const urlsToCache=[
     "./assets/data/it.json",
     "./assets/images/icon-192.png",
     "./assets/images/icon-512.png",
-    "./assets/images/image_header.png",
-    "./assets/images/logo_sportchecklist_en.png",
-    "./assets/images/logo_sportchecklist_it.png"
+    "./assets/images/header.png",
+    "./assets/images/logo.png"
 
 ]
 
