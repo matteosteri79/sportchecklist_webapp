@@ -14,7 +14,7 @@
     },
 
     "home": {
-        "tagline": "Non dimenticare nulla",
+        "tagline": "non dimenticare nulla",
         "welcome": "Benvenuto in Sport Checklist",
         "createFirst": "Crea la tua prima checklist dal menu in basso.",
         "yourChecklists": "Le tue checklist"
@@ -60,7 +60,7 @@
         "description": "WebApp sviluppata per preparare la tua prossima gara e non dimenticarti nulla.",
         "goodLuck": "Buona fortuna e buona gara!",
         "contact": "Contattaci per supporto o feedback:",
-        "tagline": "Non dimenticare nulla",
+        "tagline": "non dimenticare nulla",
         "write": "Scrivici",
         "welcome": "Benvenuto"
     },

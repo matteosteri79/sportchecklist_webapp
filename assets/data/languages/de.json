@@ -14,7 +14,7 @@
     },
 
     "home": {
-        "tagline": "Vergiss nichts",
+        "tagline": "vergiss nichts",
         "welcome": "Willkommen bei Sport Checklist",
         "createFirst": "Erstelle deine erste Checkliste über das Menü unten.",
         "yourChecklists": "Deine Checklisten"
@@ -60,7 +60,7 @@
         "description": "WebApp zur Vorbereitung auf deinen nächsten Wettkampf, damit du nichts vergisst.",
         "goodLuck": "Viel Erfolg und einen guten Wettkampf!",
         "contact": "Kontaktiere uns für Support oder Feedback:",
-        "tagline": "Vergiss nichts",
+        "tagline": "vergiss nichts",
         "write": "Schreib uns",
         "welcome": "Willkommen"
     },

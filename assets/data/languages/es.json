@@ -14,7 +14,7 @@
     },
 
     "home": {
-        "tagline": "No olvides nada",
+        "tagline": "no olvides nada",
         "welcome": "Bienvenido a Sport Checklist",
         "createFirst": "Crea tu primera lista desde el menú inferior.",
         "yourChecklists": "Tus listas"
@@ -60,7 +60,7 @@
         "description": "WebApp desarrollada para preparar tu próxima competición y no olvidar nada.",
         "goodLuck": "¡Buena suerte y buena competición!",
         "contact": "Contáctanos para soporte o comentarios:",
-        "tagline": "No olvides nada",
+        "tagline": "no olvides nada",
         "write": "Escríbenos",
         "welcome": "Bienvenido"
     },
